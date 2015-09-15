@@ -1,0 +1,189 @@
+Name: Brandon Brien
+ID: 10079883
+CPSC457 A3
+
+
+Important:
+
+- All the times shown in graphs and questions were done on a 
+  MULTI-CORE system. If you run them on a single core, the
+  results will differ from what i've said. See #7 for more information.
+
+- If you generate a graph yourself(I included two that i genrate) sometimes
+  there would just be a bad test and there was really obvious spike or drop
+  in the graph. Simply re-run the program and create another graph for a more
+  stable response. My code is not perfect.
+
+- I was having trouble running Scenario 2 with 10,000 queue so i excluded it 
+  from the graph. If you run the code it will run the 10000 test because maybe
+  it was just my machine. So i include a graph just up to 2,000 for easy comparing
+  between the two scenarios.
+
+- Can comment out the 10k test in Scenario 2 to drastically improve the execution
+  time
+
+- Had a lot of trouble running on my virtual machine. Programs work much better
+  on the CPSC linux computers.
+
+
+
+Usage:
+	
+- All things compile with 'make'
+- to generate a graph used chmod +x plot.pg
+	- ./plot.pg > plot.png
+- ./a3s2
+- ./a3s1 
+
+
+
+#1
+	a. Critical section
+
+	b. Critical section
+
+	c. threads
+
+	d. The customers gain access to the payment queue by having completed
+	   their order at either, the coffee pots, or complex barista.
+	   The customers gain access to the complex line by being placed
+	   at the end of the queue from they "come into the store". They
+	   gain access to the coffee pot the same was as the complex barista
+	   except in a different que.
+
+	e. They could be? But real life stores don't have unlimited space 
+	   so techinically they should not be unlimited in length. This 
+	   allows for array implementation.
+	
+#2 
+	Using pthreads because it allows the threads to execute "the 
+	same program" and they are all apart of a single process. Of 
+	the two, it seems like it would be the easier choice. 
+	
+	I believe that NPTL is the default implementation
+	
+
+#3
+	These were not taken from the graph. Just generated seperately
+
+	Scenario 1: 
+		Complex: 112.64 miliseconds
+		Simple: 108.49 miliseconds
+	
+	Scenario 2:
+		Complex: 79.55 miliseconds
+		Simple: 57.93
+
+#4
+	a. After running a couple of trails of 10->50->10->250
+	   (excluded other to save time) the average time to 
+	   finish them all was:
+	
+          
+
+	bash-4.1$ gcc -pthread a3s1Fin.c
+	bash-4.1$ ./a.out
+	size complex simple 
+	10 12.85 13.60
+	50 58.77 58.17
+	100 109.78 115.23
+	250 280.77 283.24
+	Total time: 2924
+
+	Scenario One: ~3 seconds
+
+
+
+	bash-4.1$ ./a.out
+	##size complex simple 
+	10 8.87 6.11
+	50 79.35 64.27
+	100 87.28 47.60
+	250 239.74 172.05
+	Total time: 4229
+
+	Scenario Two: ~4.3 seconds 
+
+		As you can see even though the average wait times were better
+		in scenario 2, the total time to get through the customers 
+		was worse. I believe this is because of way i measured the time
+		and the fact that scenario two has a a lot more code and a lot
+		more things to do than scenario 1. 
+
+		I've taken a lot of time to make sure the specific turnaround times
+		are decently accurate so even though scenario has a better total 
+		time, i dont think it's better than scenario 2. I think the fact
+		that scenario two has a longer time doesn't mean much here.
+
+#5
+	Scenario 1: Each customer recieved, on average, the same service.
+		    (ie: complex and simple usually wait the same amount of time)
+
+	Scenario 2: It's clear that the complex customers have to wait a much longer
+		    time, on average, than the simple customers. Simple definitely
+		    recieve better service
+
+#6 
+		After reviewing my data, I believe that you, Starlocks, should change
+	your queuing system to better match the one that i've implemented.
+	It clearly shows that simple customers receive a drastic reduction in waiting 
+	time, with complex customers usually waiting around the same amount of timne. 
+	By reducing the time for simple customers it would definitely attract more people
+	because as we all know the lines at Starlocks are get pretty crazy in the morening. 
+	So if you could cut the time that some people wait, you would defintely see an increase
+	in profit, customers service and i think a lot of poeple would enjoy the self serve 
+	coffee pots. 
+
+	   
+#7
+
+	When running on a multi core system it drastically improved all run times
+	and make them MUCH more stable and reliable. With the single-core test
+	i wasn't seeing much difference in any of the queue times for any scenario
+	or type of customer. As soon as i switched to a multi core CPU all the 
+	test results reflected what they should (scenario 2 being better, in my opinion). 
+	This is why i gave all my results from multi core machine.
+	
+	I fully expected the multi core CPU to show better times because almost everything
+	that the programs do is done on the CPU. So when the CPU has access to more cores
+	it can proccess more information per time unit because there are "4 CPUS" that can 
+	do work at a time.
+
+#8 
+	Because it was taking so long i only did tests at a few queue number:
+	
+	[bjbrien@zone48-wd Question8]$ ./a3q8
+	size complex simple 
+	10 36.07 17.08
+	50 1668.07 817.73
+	100 3164.91 2295.79
+	250 9985.01 8689.93
+	^C
+
+	as you can see, queue times were extremely slow and much much worse.
+	I would definitely not recommend this as an implementation to Starlocks.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
